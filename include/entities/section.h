@@ -10,11 +10,11 @@
 #include <string>
 #include <stdint.h>
 
-#include "student.h"
 #include "timetable.h"
 
 class TimeTable;
 class Student;
+class Class;
 
 class Section
 {
@@ -37,4 +37,5 @@ class Section
 
     std::vector<const Student*> _Students;
     const TimeTable* _TimeTable;
+    const Class* _Class;
 };

@@ -1,6 +1,30 @@
 #include "entityDatabase.h"
 using namespace std;
 
+// Populate FunctionStr
+char* EntityDataBase::m_functionStr[PRINT+1] = {
+  "Undefined",
+  "ADD",
+  "UPDATE",
+  "FIND",
+  "LINK",
+  "DELETE",
+  "PRINT"
+};
+// Populate EntityStr
+char* EntityDataBase::m_entityStr[TIMETABLE+1] = {
+  "ALL",
+  "BUILDING",
+  "FLOOR",
+  "CLASS",
+  "PERIOD",
+  "SECTION",
+  "SUBJECT",
+  "TEACHER",
+  "STUDENT",
+  "TIMETABLE"
+};
+
 EntityDataBase::EntityDataBase()
 {
 }
@@ -9,16 +33,62 @@ EntityDataBase::~EntityDataBase()
 {
 }
 
-int EntityDataBase::addNewEntity(Entity entity, const std::string& name)
+int EntityDataBase::execFromParams(Function fn, const vector<pair<string, string> >& info, const vector<pair<string, string> >& cond)
 {
+  // Condition is true; when there is ADD, but no linking
+  if(fn == ADD && cond.empty())
+  {
+    Entity en = ALL;
+    for(int i = 0; i < info.size() && (en = getEntityFromStr(info[i].second)) == ALL; i++);
+    addNewEntity(en, info);
+  }
+  else if(fn == ADD)
+  {
+    cout << "ERROR: " << m_functionStr[fn] << " with LINKING not implemented yet!" << endl;
+  }
+  else
+  {
+    cout << "ERROR: " << m_functionStr[fn] << " not implemented yet!" << endl;
+  }
+  return 0;
+}
+
+int EntityDataBase::addNewEntity(Entity entity, const std::vector<std::pair<std::string, std::string> >& attrs)
+{
+  int lastIndex = -1;
+
+  switch(entity)
+  {
+    case STUDENT:
+      lastIndex = m_allStudents.size();
+      m_allStudents.resize(lastIndex+1);
+      m_allStudents[lastIndex] = new Student();
+      m_allStudents[lastIndex]->addAttrs(attrs); break;
+    case TEACHER:
+    case BUILDING:
+    case FLOOR:
+    case CLASS:   
+    case PERIOD:
+    case SECTION: 
+    case SUBJECT: 
+    case TIMETABLE:
+    default:
+      cout << "ERROR: Not an entity!" << endl;
+      return -1;
+  }
+
+  cout << "INFO: New entity added!" << endl;
+  return 0;
 }
 
 int EntityDataBase::linkEntity()
 {
+  return 0;
 }
 
 int EntityDataBase::deleteEntity()
 {
+  return 0;
 }
 
 int EntityDataBase::printEntityDetails() const
@@ -45,4 +115,30 @@ int EntityDataBase::printEntityDetails() const
 
 int EntityDataBase::findEntity() const
 {
+}
+
+Entity EntityDataBase::getEntityFromStr(const string& str)
+{
+  for(int i = 0; i <= TIMETABLE; i++)
+    if(str == m_entityStr[i])
+      return (Entity)i;
+  return ALL;
+}
+
+Function EntityDataBase::getFunctionFromStr(const string& str)
+{
+  for(int i = 0; i <= PRINT; i++)
+    if(str == m_functionStr[i])
+      return (Function)i;
+  return UNDEF;
+}
+
+string EntityDataBase::getStringFromEntity(const Entity& en)
+{
+  return m_entityStr[en];
+}
+
+string EntityDataBase::getStringFromFunction(const Function& fn)
+{
+  return m_functionStr[fn];
 }

@@ -7,9 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <utility>
 #include <string>
 
-#include "class.h"
+#include "section.h"
 #include "subject.h"
 
 class Class;
@@ -27,6 +28,8 @@ class Student
     friend std::istream& operator>>(std::istream&, Student*);
     friend std::istream& operator>>(std::istream&, Student&);
 
+    int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
+
     friend class EntityDataBase;
 
   private:
@@ -37,8 +40,10 @@ class Student
     };
 
     std::string m_name;
+    std::string m_rollNo;
+
     float m_avgPercent;
 
     std::vector<SubjectMarks> _SubjectAndMarks;
-    const Class* _Class;
+    const Section* _Section;
 };

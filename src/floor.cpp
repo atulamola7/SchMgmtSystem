@@ -3,6 +3,7 @@ using namespace std;
 
 Floor::Floor()
 {
+  m_name = "Anonymous";
 }
 
 Floor::~Floor()

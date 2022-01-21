@@ -3,6 +3,7 @@ using namespace std;
 
 Class::Class()
 {
+  m_name = "Anonymous";
 }
 
 Class::~Class()

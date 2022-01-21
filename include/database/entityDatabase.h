@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "teacher.h"
 #include "student.h"
@@ -19,14 +20,16 @@ enum Function
 {
   UNDEF  = 0,
   ADD    = 1,
-  FIND   = 2,
-  LINK   = 3,
-  DELETE = 4,
-  PRINT  = 5
+  UPDATE = 2,
+  FIND   = 3,
+  LINK   = 4,
+  DELETE = 5,
+  PRINT  = 6
 };
 
 enum Entity
 {
+  ALL,
   BUILDING,
   FLOOR,
   CLASS,
@@ -44,14 +47,27 @@ class EntityDataBase
     EntityDataBase();
     ~EntityDataBase();
 
-    int addNewEntity(Entity entity, const std::string& name);
-    int linkEntity();
-    int deleteEntity();
+    int execFromParams(Function fn, const std::vector<std::pair<std::string, std::string> >&, const std::vector<std::pair<std::string, std::string> >&);
+
+    static Entity getEntityFromStr(const std::string&);
+    static Function getFunctionFromStr(const std::string&);
+    static std::string getStringFromEntity(const Entity&);
+    static std::string getStringFromFunction(const Function&);
+
+    // TODO Move to private
     int printEntityDetails() const;
     int printAllEntityDetails() const;
-    int findEntity() const;
 
   private:
+
+    static char* m_functionStr[PRINT+1];
+    static char* m_entityStr[TIMETABLE+1];
+
+    int addNewEntity(Entity entity, const std::vector<std::pair<std::string, std::string> >&);
+    int linkEntity();
+    int deleteEntity();
+    int findEntity() const;
+
     std::vector<Teacher*> m_allTeachers;
     std::vector<Student*> m_allStudents;
     std::vector<Subject*> m_allSubjects;

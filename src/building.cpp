@@ -4,6 +4,7 @@ using namespace std;
 Building::Building()
 {
   m_buildingArea = 0;
+  m_name = "Anonymous";
 }
 
 Building::~Building()

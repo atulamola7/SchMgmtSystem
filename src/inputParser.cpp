@@ -1,4 +1,5 @@
 #include "inputParser.h"
+#include "entityDatabase.h"
 using namespace std;
 
 InputParser::InputParser()
@@ -15,41 +16,27 @@ int InputParser::lastInterpret(Function& fn, vector<pair<string, string> >& info
   if(m_parsedStrings.empty())
     return -1;
 
-  if(m_parsedStrings[0] == "ADD")
-    fn = ADD;
-  else if(m_parsedStrings[0] == "FIND")
-    fn = FIND;
-  else if(m_parsedStrings[0] == "LINK")
-    fn = LINK;
-  else if(m_parsedStrings[0] == "DELETE")
-    fn = DELETE;
-  else if(m_parsedStrings[0] == "PRINT")
-    fn = PRINT;
-  else
+  fn = EntityDataBase::getFunctionFromStr(m_parsedStrings[0]);
+  if(fn == UNDEF)
   {
     cout << "ERROR: Unrecognized function '" << m_parsedStrings[0] << "'." << endl;
     return -1;
   }
 
+  vector<pair<string, string> >* dataHolderPtr = &info;
+
   int parsedStrIdx = 0;
-  for(parsedStrIdx = 1; parsedStrIdx < m_parsedStrings.size() && m_parsedStrings[parsedStrIdx] != "for"; parsedStrIdx++)
+  for(parsedStrIdx = 1; parsedStrIdx < m_parsedStrings.size(); parsedStrIdx++)
   {
-    int kvSeparator = m_parsedStrings[parsedStrIdx].find("=");
-    if(kvSeparator == string::npos)
-      continue;
+    if(m_parsedStrings[parsedStrIdx] == "for")
+      dataHolderPtr = &condition;
 
     const string& str = m_parsedStrings[parsedStrIdx];
-    info.push_back(make_pair(str.substr(0,kvSeparator), str.substr(kvSeparator+1)));
-  }
-
-  for(; parsedStrIdx < m_parsedStrings.size(); parsedStrIdx++)
-  {
-    int kvSeparator = m_parsedStrings[parsedStrIdx].find("=");
+    int kvSeparator = str.find("=");
     if(kvSeparator == string::npos)
-      continue;
-
-    const string& str = m_parsedStrings[parsedStrIdx];
-    condition.push_back(make_pair(str.substr(0,kvSeparator), str.substr(kvSeparator+1)));
+      dataHolderPtr->push_back(make_pair("", str));
+    else
+      dataHolderPtr->push_back(make_pair(str.substr(0,kvSeparator), str.substr(kvSeparator+1)));
   }
 
   return 0;

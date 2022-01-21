@@ -5,6 +5,7 @@ Teacher::Teacher()
 {
   _Subject = NULL;
   _TeacherTT = NULL;
+  m_name = "Anonymous";
 }
 
 Teacher::~Teacher()

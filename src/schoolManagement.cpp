@@ -3,7 +3,7 @@
 using namespace std;
 
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 1
+#define MINOR_VERSION 2
 #define REVISION 0
 
 void PrintSMSVersion()
@@ -49,7 +49,8 @@ int SchoolManager::run()
 
     Function fn = UNDEF;
     vector<pair<string,string> > info, cond;
-    ip.lastInterpret(fn, info, cond);
+    if(ip.lastInterpret(fn, info, cond) == 0)
+      m_eDB.execFromParams(fn, info, cond);
 
 #if 0
     cout << "Interpreted as: " << fn << endl;

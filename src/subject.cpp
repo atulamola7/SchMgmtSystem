@@ -3,6 +3,7 @@ using namespace std;
 
 Subject::Subject()
 {
+  m_name = "Anonymous";
 }
 
 Subject::~Subject()

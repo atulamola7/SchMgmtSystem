@@ -6,6 +6,7 @@ Section::Section()
   _TimeTable = NULL;
   m_maxOccupancy = 0;
   m_roomNo = 0;
+  m_name = "Anonymous";
 }
 
 Section::~Section()
