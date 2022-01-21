@@ -9,7 +9,7 @@ string StringEx::replaceAll(string str, const string& toBeReplaced, const string
   {
     ret += str.substr(0, idx);
     ret += replaceWith;
-    str = str.substr(idx + replaceWith.size());
+    str = str.substr(idx + toBeReplaced.size());
   }
   ret += str;
   return ret;
