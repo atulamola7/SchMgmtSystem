@@ -44,7 +44,7 @@ enum Entity
 class EntityDataBase
 {
   public:
-    EntityDataBase();
+    static EntityDataBase& Instance();
     ~EntityDataBase();
 
     int execFromParams(Function fn, const std::vector<std::pair<std::string, std::string> >&, const std::vector<std::pair<std::string, std::string> >&);
@@ -59,6 +59,9 @@ class EntityDataBase
     int printAllEntityDetails() const;
 
   private:
+    EntityDataBase();
+    EntityDataBase(const EntityDataBase&);
+    const EntityDataBase& operator=(const EntityDataBase&);
 
     static char* m_functionStr[PRINT+1];
     static char* m_entityStr[TIMETABLE+1];

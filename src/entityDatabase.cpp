@@ -29,8 +29,35 @@ EntityDataBase::EntityDataBase()
 {
 }
 
+EntityDataBase::EntityDataBase(const EntityDataBase& en)
+{
+  *this = en;
+}
+
+const EntityDataBase& EntityDataBase::operator=(const EntityDataBase& en)
+{
+  *this = en;
+  return *this;
+}
+
+EntityDataBase& EntityDataBase::Instance()
+{
+  static EntityDataBase eDB;
+  return eDB;
+}
+
 EntityDataBase::~EntityDataBase()
 {
+  for(int i = 0; i < m_allTeachers.size(); i++)
+    delete m_allTeachers[i];
+  for(int i = 0; i < m_allStudents.size(); i++)
+    delete m_allStudents[i];
+  for(int i = 0; i < m_allSubjects.size(); i++)
+    delete m_allSubjects[i];
+  for(int i = 0; i < m_allClasses.size(); i++)
+    delete m_allClasses[i];
+  for(int i = 0; i < m_allFloors.size(); i++)
+    delete m_allFloors[i];
 }
 
 int EntityDataBase::execFromParams(Function fn, const vector<pair<string, string> >& info, const vector<pair<string, string> >& cond)
@@ -65,6 +92,10 @@ int EntityDataBase::addNewEntity(Entity entity, const std::vector<std::pair<std:
       m_allStudents[lastIndex] = new Student();
       m_allStudents[lastIndex]->addAttrs(attrs); break;
     case TEACHER:
+      lastIndex = m_allTeachers.size();
+      m_allTeachers.resize(lastIndex+1);
+      m_allTeachers[lastIndex] = new Teacher();
+      m_allTeachers[lastIndex]->addAttrs(attrs); break;
     case BUILDING:
     case FLOOR:
     case CLASS:   

@@ -1,4 +1,5 @@
 #include "teacher.h"
+#include "stringEx.h"
 using namespace std;
 
 Teacher::Teacher()
@@ -6,6 +7,7 @@ Teacher::Teacher()
   _Subject = NULL;
   _TeacherTT = NULL;
   m_name = "Anonymous";
+  m_tchrId = "0";
 }
 
 Teacher::~Teacher()
@@ -14,26 +16,37 @@ Teacher::~Teacher()
   _TeacherTT = NULL;
 }
 
+int Teacher::addAttrs(const std::vector<std::pair<std::string, std::string> >& attrs)
+{
+  for(int i = 0; i < attrs.size(); i++)
+  {
+    if(attrs[i].first == "name")    m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
+    else if(attrs[i].first == "t_id")  m_tchrId = attrs[i].second;
+  }
+
+  return 0;
+}
+
 ostream& operator<<(ostream& os, const Teacher* t)
 {
-  os << "Teacher: " << t->m_name;
+  os << "Teacher: " << t->m_name << ':' << t->m_tchrId;
   return os;
 }
 
 ostream& operator<<(ostream& os, const Teacher& t)
 {
-  os << "Teacher: " << t.m_name;
+  os << "Teacher: " << t.m_name << ':' << t.m_tchrId;
   return os;
 }
 
 istream& operator>>(istream& is, Teacher* t)
 {
-  is >> t->m_name;
+  is >> t->m_name >> t->m_tchrId;
   return is;
 }
 
 istream& operator>>(istream& is, Teacher& t)
 {
-  is >> t.m_name;
+  is >> t.m_name >> t.m_tchrId;
   return is;
 }

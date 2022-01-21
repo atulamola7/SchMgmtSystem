@@ -5,7 +5,7 @@ all: $(OBJS)
 	g++ -g $^ -o bin/SchoolMgmtSystem
 
 obj/%.o: src/%.cpp
-	g++ -g -c -I./include/entities -I./include/database -I./include/manager $< -o $@
+	g++ -g -c -I./include/entities -I./include/database -I./include/manager -I./include/utils $< -o $@
 
 clean:
 	rm -f obj/* bin/*

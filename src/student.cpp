@@ -1,4 +1,5 @@
 #include "student.h"
+#include "stringEx.h"
 using namespace std;
 
 Student::Student()
@@ -15,26 +16,11 @@ Student::~Student()
   m_avgPercent = 0.0f;
 }
 
-string replaceUSWS(string s)
-{
-  int idx;
-  string ret;
-  while((idx = s.find("_")) != string::npos)
-  {
-    ret += s.substr(0, idx) + " ";
-    s = s.substr(idx+1);
-  }
-
-  ret += s;
-  
-  return ret;
-}
-
 int Student::addAttrs(const std::vector<std::pair<std::string, std::string> >& attrs)
 {
   for(int i = 0; i < attrs.size(); i++)
   {
-    if(attrs[i].first == "name")    m_name = replaceUSWS(attrs[i].second);
+    if(attrs[i].first == "name")    m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
     else if(attrs[i].first == "roll_no") m_rollNo = attrs[i].second;
   }
 

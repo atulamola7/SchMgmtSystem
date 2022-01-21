@@ -17,7 +17,4 @@ class SchoolManager
   private:
 
     int loadInfoFromFiles();
-    //int 
-
-    EntityDataBase m_eDB;
 };
