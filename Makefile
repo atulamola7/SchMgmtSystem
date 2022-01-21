@@ -8,4 +8,4 @@ obj/%.o: src/%.cpp
 	g++ -g -c -I./include/entities -I./include/database -I./include/manager $< -o $@
 
 clean:
-	rm -f obj/*
+	rm -f obj/* bin/*
