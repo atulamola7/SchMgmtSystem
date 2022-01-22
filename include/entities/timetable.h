@@ -6,11 +6,14 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include <vector>
+#include <utility>
 
 #include "period.h"
 
 class Period;
+class Section;
 
 class TimeTable
 {
@@ -24,9 +27,12 @@ class TimeTable
     friend std::istream& operator>>(std::istream&, TimeTable*);
     friend std::istream& operator>>(std::istream&, TimeTable&);
 
+	int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
+
     friend class EntityDataBase;
 
   private:
-
+    Section* _Section;
+	std::string m_id;
     std::vector<const Period*> _Periods;
 };

@@ -1,5 +1,5 @@
-#include "student.h"
-#include "stringEx.h"
+#include "../include/entities/student.h"
+#include "../include/utils/stringEx.h"
 using namespace std;
 
 Student::Student()

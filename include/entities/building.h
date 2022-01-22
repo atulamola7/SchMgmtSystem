@@ -6,6 +6,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 class Building
@@ -19,6 +20,8 @@ class Building
 
     friend std::istream& operator>>(std::istream&, Building*);
     friend std::istream& operator>>(std::istream&, Building&);
+
+	int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
 
     friend class EntityDataBase;
 

@@ -1,5 +1,5 @@
-#include "teacher.h"
-#include "stringEx.h"
+#include "../include/entities/teacher.h"
+#include "../include/utils/stringEx.h"
 using namespace std;
 
 Teacher::Teacher()
@@ -16,7 +16,7 @@ Teacher::~Teacher()
   _TeacherTT = NULL;
 }
 
-int Teacher::addAttrs(const std::vector<std::pair<std::string, std::string> >& attrs)
+int Teacher::addAttrs(const vector<pair<string, string> >& attrs)
 {
   for(int i = 0; i < attrs.size(); i++)
   {

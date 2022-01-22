@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "entityDatabase.h"
-#include "inputParser.h"
+#include "../include/database/entityDatabase.h"
+#include "../include/manager/inputParser.h"
 
 class SchoolManager
 {
@@ -13,8 +13,4 @@ class SchoolManager
 
     int init();
     int run();
-
-  private:
-
-    int loadInfoFromFiles();
 };

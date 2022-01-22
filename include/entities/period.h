@@ -7,6 +7,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <utility>
 
 #include "period.h"
 #include "class.h"
@@ -28,6 +30,8 @@ class Period
 
     friend std::istream& operator>>(std::istream&, Period*);
     friend std::istream& operator>>(std::istream&, Period&);
+
+	int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
 
     friend class EntityDataBase;
 

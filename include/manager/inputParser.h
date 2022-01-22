@@ -9,7 +9,7 @@
 #include <string>
 #include <iostream>
 
-#include "entityDatabase.h"
+#include "../include/database/entityDatabase.h"
 
 class InputParser
 {

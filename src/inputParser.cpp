@@ -1,5 +1,5 @@
-#include "inputParser.h"
-#include "entityDatabase.h"
+#include "../include/manager/inputParser.h"
+#include "../include/database/entityDatabase.h"
 using namespace std;
 
 InputParser::InputParser()

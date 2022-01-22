@@ -1,4 +1,5 @@
-#include "floor.h"
+#include "../include/entities/floor.h"
+#include "../include/utils/stringEx.h"
 using namespace std;
 
 Floor::Floor()
@@ -9,6 +10,17 @@ Floor::Floor()
 Floor::~Floor()
 {
 }
+
+int Floor::addAttrs(const vector<pair<string, string> >& attrs)
+{
+	for(int i = 0; i < attrs.size(); i++)
+	{
+		if(attrs[i].first == "name") m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
+	}
+
+	return 0;
+}
+
 
 ostream& operator<<(ostream& os, const Floor* f)
 {

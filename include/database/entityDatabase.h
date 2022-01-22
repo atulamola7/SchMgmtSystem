@@ -10,11 +10,15 @@
 #include <string>
 #include <utility>
 
-#include "teacher.h"
-#include "student.h"
-#include "floor.h"
-#include "class.h"
-#include "subject.h"
+#include "../include/entities/teacher.h"
+#include "../include/entities/student.h"
+#include "../include/entities/floor.h"
+#include "../include/entities/class.h"
+#include "../include/entities/subject.h"
+#include "../include/entities/building.h"
+#include "../include/entities/section.h"
+#include "../include/entities/period.h"
+#include "../include/entities/timetable.h"
 
 enum Function
 {
@@ -76,4 +80,9 @@ class EntityDataBase
     std::vector<Subject*> m_allSubjects;
     std::vector<Class*>   m_allClasses;
     std::vector<Floor*>   m_allFloors;
+
+	std::vector<Building*> m_allBuildings;
+	std::vector<Period*>   m_allPeriods;
+	std::vector<Section*>  m_allSections;
+	std::vector<TimeTable*>  m_allTimeTables;
 };

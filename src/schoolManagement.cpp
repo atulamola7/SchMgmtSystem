@@ -1,9 +1,9 @@
-#include "schoolManagement.h"
+#include "../include/manager/schoolManagement.h"
 #include <sstream>
 using namespace std;
 
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 3
+#define MINOR_VERSION 4
 #define REVISION 0
 
 void PrintSMSVersion()

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "section.h"
 
@@ -24,6 +25,8 @@ class Class
 
     friend std::istream& operator>>(std::istream&, Class*);
     friend std::istream& operator>>(std::istream&, Class&);
+
+	int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
 
     friend class EntityDataBase;
 

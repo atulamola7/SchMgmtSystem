@@ -8,7 +8,13 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <utility>
+
+#if defined(WIN32) || defined(WIN64)
+#define uint16_t __int16
+#else
 #include <stdint.h>
+#endif
 
 #include "timetable.h"
 
@@ -27,6 +33,8 @@ class Section
 
     friend std::istream& operator>>(std::istream&, Section*);
     friend std::istream& operator>>(std::istream&, Section&);
+
+	int addAttrs(const std::vector<std::pair<std::string, std::string> >&);
 
     friend class EntityDataBase;
 

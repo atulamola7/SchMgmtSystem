@@ -1,4 +1,4 @@
-#include "principal.h"
+#include "../include/entities/principal.h"
 using namespace std;
 
 Principal::Principal()
