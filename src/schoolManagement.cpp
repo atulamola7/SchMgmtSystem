@@ -3,7 +3,7 @@
 using namespace std;
 
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 4
+#define MINOR_VERSION 5
 #define REVISION 0
 
 void PrintSMSVersion()
@@ -38,7 +38,8 @@ int SchoolManager::run()
   cout << "#> " << flush;
   while(getline(cin, data))
   {
-    if(data.substr(0,2) == "\\q")
+	if(data.substr(0,2) == "\\q" || data.substr(0,4) == "exit" 
+		|| data.substr(0,4) == "quit")
       break;
 
     stringstream ss;
@@ -51,17 +52,6 @@ int SchoolManager::run()
     vector<pair<string,string> > info, cond;
     if(ip.lastInterpret(fn, info, cond) == 0)
       EntityDataBase::Instance().execFromParams(fn, info, cond);
-
-#if 0
-    cout << "Interpreted as: " << fn << endl;
-    cout << "Info: " << endl;
-    for(int i = 0; i < info.size(); i++)
-      cout << "\t" << info[i].first << ' ' << info[i].second << endl;
-
-    cout << "Cond: " << endl;
-    for(int i = 0; i < cond.size(); i++)
-      cout << "\t" << cond[i].first << ' ' << cond[i].second << endl;
-#endif
 
     cout << "#> " << flush;
   }

@@ -28,7 +28,8 @@ enum Function
   FIND   = 3,
   LINK   = 4,
   DELETE = 5,
-  PRINT  = 6
+  PRINT  = 6,
+  HELP	 = 7
 };
 
 enum Entity
@@ -45,6 +46,8 @@ enum Entity
   TIMETABLE
 };
 
+// TODO Move all HELP methods to utils
+
 class EntityDataBase
 {
   public:
@@ -55,9 +58,11 @@ class EntityDataBase
 
     static Entity getEntityFromStr(const std::string&);
     static Function getFunctionFromStr(const std::string&);
-    static std::string getStringFromEntity(const Entity&);
-    static std::string getStringFromFunction(const Function&);
+    static const char* getStringFromEntity(const Entity&);
+    static const char* getStringFromFunction(const Function&);
 
+	static int printHelp(Function, Entity);
+			   
     // TODO Move to private
     int printEntityDetails() const;
     int printAllEntityDetails() const;
@@ -67,13 +72,30 @@ class EntityDataBase
     EntityDataBase(const EntityDataBase&);
     const EntityDataBase& operator=(const EntityDataBase&);
 
-    static char* m_functionStr[PRINT+1];
-    static char* m_entityStr[TIMETABLE+1];
+    static const char* m_functionStr[HELP+1];
+    static const char* m_entityStr[TIMETABLE+1];
 
     int addNewEntity(Entity entity, const std::vector<std::pair<std::string, std::string> >&);
     int linkEntity();
     int deleteEntity();
     int findEntity() const;
+
+	static int helpADD();
+	static int helpUPDATE();
+	static int helpFIND();
+	static int helpLINK();
+	static int helpDELETE();
+	static int helpPRINT();
+
+	static int helpBUILDING();
+	static int helpFLOOR();
+	static int helpCLASS();
+	static int helpPERIOD();
+	static int helpSECTION();
+	static int helpSUBJECT();
+	static int helpTEACHER();
+	static int helpSTUDENT();
+	static int helpTIMETABLE();
 
     std::vector<Teacher*> m_allTeachers;
     std::vector<Student*> m_allStudents;

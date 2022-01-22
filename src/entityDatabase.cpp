@@ -2,17 +2,18 @@
 using namespace std;
 
 // Populate FunctionStr
-char* EntityDataBase::m_functionStr[PRINT+1] = {
+const char* EntityDataBase::m_functionStr[HELP+1] = {
   "Undefined",
   "ADD",
   "UPDATE",
   "FIND",
   "LINK",
   "DELETE",
-  "PRINT"
+  "PRINT",
+  "HELP"
 };
 // Populate EntityStr
-char* EntityDataBase::m_entityStr[TIMETABLE+1] = {
+const char* EntityDataBase::m_entityStr[TIMETABLE+1] = {
   "ALL",
   "BUILDING",
   "FLOOR",
@@ -72,27 +73,63 @@ EntityDataBase::~EntityDataBase()
 
 int EntityDataBase::execFromParams(Function fn, const vector<pair<string, string> >& info, const vector<pair<string, string> >& cond)
 {
+  int ret = 0;
   // Condition is true; when there is ADD, but no linking
   if(fn == ADD && cond.empty())
   {
     Entity en = ALL;
-    for(int i = 0; i < info.size() && (en = getEntityFromStr(info[i].second)) == ALL; i++);
+	int i;
+    for(i = 0; i < info.size() && (en = getEntityFromStr(info[i].second)) == ALL; i++);
+	if(info.empty() || info[0].second.empty())
+	  cout << "ERROR: Entity not provided!" << endl;
+	else if(en == ALL)
+	  cout << "ERROR: Entity '" << info[0].second << "' not found!" << endl;
+
     addNewEntity(en, info);
   }
   else if(fn == ADD)
   {
     cout << "ERROR: " << m_functionStr[fn] << " with LINKING not implemented yet!" << endl;
   }
+  else if(fn == LINK)
+  {
+	cout << "ERROR: Yeah keep trying!" << endl;
+  }
+  else if(fn == UPDATE)
+  {
+	cout << "ERROR: Not gonna work, pal!" << endl;
+  }
+  else if(fn == FIND)
+  {
+	cout << "ERROR: Yeah yeah, whatever!" << endl;
+  }
+  else if(fn == DELETE)
+  {
+	cout << "ERROR: Whatever!" << endl;
+  }
+  else if(fn == PRINT)
+  {
+	cout << "ERROR: Don't even try!" << endl;
+  }
+  else if(fn == HELP)
+  {
+	  Entity en = info.size() ? getEntityFromStr(info[0].second) : ALL;
+	  Function fn = info.size() ? getFunctionFromStr(info[0].second) : UNDEF;
+	  printHelp(fn, en);
+  }
   else
   {
+	ret = -1;
     cout << "ERROR: " << m_functionStr[fn] << " not implemented yet!" << endl;
   }
-  return 0;
+
+  return ret;
 }
 
 int EntityDataBase::addNewEntity(Entity entity, const std::vector<std::pair<std::string, std::string> >& attrs)
 {
   int lastIndex = -1;
+  linkEntity();
 
   switch(entity)
   {
@@ -142,7 +179,6 @@ int EntityDataBase::addNewEntity(Entity entity, const std::vector<std::pair<std:
       m_allTimeTables[lastIndex] = new TimeTable();
       m_allTimeTables[lastIndex]->addAttrs(attrs); break;
     default:
-      cout << "ERROR: Not an entity!" << endl;
       return -1;
   }
 
@@ -152,6 +188,7 @@ int EntityDataBase::addNewEntity(Entity entity, const std::vector<std::pair<std:
 
 int EntityDataBase::linkEntity()
 {
+	cout << "ERROR: '" << __FUNCTION__ << "': Not implemented yet!" << endl;
   return 0;
 }
 
@@ -225,7 +262,6 @@ int EntityDataBase::printEntityDetails() const
   for(int i = 0; i < m_allTimeTables.size(); i++)
 	cout << "\t" << m_allTimeTables[i] << endl;
 
-
   return 0;
 }
 
@@ -244,18 +280,150 @@ Entity EntityDataBase::getEntityFromStr(const string& str)
 
 Function EntityDataBase::getFunctionFromStr(const string& str)
 {
-  for(int i = 0; i <= PRINT; i++)
+  for(int i = 0; i <= HELP; i++)
     if(str == m_functionStr[i])
       return (Function)i;
   return UNDEF;
 }
 
-string EntityDataBase::getStringFromEntity(const Entity& en)
+const char* EntityDataBase::getStringFromEntity(const Entity& en)
 {
   return m_entityStr[en];
 }
 
-string EntityDataBase::getStringFromFunction(const Function& fn)
+const char* EntityDataBase::getStringFromFunction(const Function& fn)
 {
   return m_functionStr[fn];
+}
+
+int EntityDataBase::printHelp(Function fn, Entity en)
+{
+	switch(fn)
+	{
+		case ADD:		return helpADD();
+		case UPDATE:	return helpUPDATE();
+		case FIND:		return helpFIND();
+		case LINK:		return helpLINK();
+		case DELETE:	return helpDELETE();
+		case PRINT:		return helpPRINT();
+	}
+
+	switch(en)
+	{
+		case BUILDING:  return helpBUILDING();
+		case FLOOR:		return helpFLOOR();
+		case CLASS:		return helpCLASS();
+		case PERIOD:	return helpPERIOD();
+		case SECTION:	return helpSECTION();
+		case SUBJECT:	return helpSUBJECT();
+		case TEACHER:	return helpTEACHER();
+		case STUDENT:	return helpSTUDENT();
+		case TIMETABLE:	return helpTIMETABLE();
+		case ALL:	cout << "  [HELP]\n\tUsage: HELP <ENTITY>/<FUNCTION>" << endl;
+	}
+
+	return -1;
+}
+
+int EntityDataBase::helpADD()
+{
+	cout << "  [HELP]\n\tFunction: ADD" << endl;
+	cout << "\tDescription: Adds a new entity element with specified properties and optionally links it to required entity!" << endl;
+	cout << "\tUsage: ADD <ENTITY> <ENTITY-SPECIFIC-PROPERTIES> [ FOR <ENTITY> <ENTITY-SPECIFIC-PROPERTIES> ]" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpUPDATE()
+{
+	cout << "  [HELP]\n\tFunction: UPDATE" << endl;
+	cout << "\tDescription: Updates an already existing entity with new data!" << endl;
+	cout << "\tUsage: UPDATE <NEW-ENTITY-SPECIFIC-PROPERTIES> FOR <ENTITY> <OLD-ENTITY-SPECIFIC-PROPERTIES>" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpFIND()
+{
+	cout << "  [HELP]\n\tFunction: FIND" << endl;
+	cout << "\tDescription: Finds an entity with specific property; can be used for linking complex entities!" << endl;
+	cout << "\tUsage: FIND <ENTITY> <ENTITY-SPECIFIC-PROPERTIES>" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpLINK()
+{
+	cout << "  [HELP]\n\tFunction: LINK" << endl;
+	cout << "\tDescription: LINK - TBD" << endl;
+	cout << "\tUsage: LINK : Not decided yet!" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpDELETE()
+{
+	cout << "  [HELP]\n\tFunction: DELETE" << endl;
+	cout << "\tDescription: Deletes elements with element properties; need to be extended with conditional linked element!" << endl;
+	cout << "\t             For example: we want to delete X of class XII-A and not XII-B" << endl;
+	cout << "\tUsage: DELETE <ENTITY> <ENTITY-SPECIFIC-PROPERTIES>" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpPRINT()
+{
+	cout << "  [HELP]\n\tFunction: PRINT" << endl;
+	cout << "\tDescription: Prints info of all entities found in the database with matching properties!" << endl;
+	cout << "\tUsage: PRINT <ENTITY> <ENTITY-SPECIFIC-PROPERTIES>" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpBUILDING()
+{
+	cout << "  [HELP]\n\tEntity: BUILDING" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpFLOOR()
+{
+	cout << "  [HELP]\n\tEntity: FLOOR" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpCLASS()
+{
+	cout << "  [HELP]\n\tEntity: CLASS" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpPERIOD()
+{
+	cout << "  [HELP]\n\tEntity: PERIOD" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpSECTION()
+{
+	cout << "  [HELP}\n\tEntity: SECTION" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpSUBJECT()
+{
+	cout << "  [HELP]\n\tEntity: SUBJECT" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpTEACHER()
+{
+	cout << "  [HELP]\n\tEntity: TEACHER" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpSTUDENT()
+{
+	cout << "  [HELP]\n\tEntity: STUDENT" << endl;
+	return 0;
+}
+
+int EntityDataBase::helpTIMETABLE()
+{
+	cout << "  [HELP]\n\tEntity: TIMETABLE" << endl;
+	return 0;
 }

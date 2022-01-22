@@ -16,13 +16,9 @@ int Building::addAttrs(const vector<pair<string, string> >& attrs)
 {
 	for(int i = 0; i < attrs.size(); i++)
 	{
-		if(attrs[i].first == "name") m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
-		else if(attrs[i].first == "area") m_buildingArea = atof(attrs[i].second.c_str());
-		else if(attrs[i].first == "levels")
-		{
-			vector<string> levels = StringEx::split(attrs[i].second, ",");
-			m_allLevels = levels;
-		}
+		if(attrs[i].first == "name")		m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
+		else if(attrs[i].first == "area")	m_buildingArea = atof(attrs[i].second.c_str());
+		else if(attrs[i].first == "levels") m_allLevels = StringEx::split(attrs[i].second, ",");
 	}
 	return 0;
 }
