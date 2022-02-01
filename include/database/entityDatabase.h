@@ -61,7 +61,7 @@ class EntityDataBase
     static const char* getStringFromEntity(const Entity&);
     static const char* getStringFromFunction(const Function&);
 
-	static int printHelp(Function, Entity);
+    static int printHelp(Function, Entity);
 			   
     // TODO Move to private
     int printEntityDetails() const;
@@ -80,22 +80,22 @@ class EntityDataBase
     int deleteEntity();
     int findEntity() const;
 
-	static int helpADD();
-	static int helpUPDATE();
-	static int helpFIND();
-	static int helpLINK();
-	static int helpDELETE();
-	static int helpPRINT();
+    static int helpADD();
+    static int helpUPDATE();
+    static int helpFIND();
+    static int helpLINK();
+    static int helpDELETE();
+    static int helpPRINT();
 
-	static int helpBUILDING();
-	static int helpFLOOR();
-	static int helpCLASS();
-	static int helpPERIOD();
-	static int helpSECTION();
-	static int helpSUBJECT();
-	static int helpTEACHER();
-	static int helpSTUDENT();
-	static int helpTIMETABLE();
+    static int helpBUILDING();
+    static int helpFLOOR();
+    static int helpCLASS();
+    static int helpPERIOD();
+    static int helpSECTION();
+    static int helpSUBJECT();
+    static int helpTEACHER();
+    static int helpSTUDENT();
+    static int helpTIMETABLE();
 
     std::vector<Teacher*> m_allTeachers;
     std::vector<Student*> m_allStudents;
@@ -103,8 +103,8 @@ class EntityDataBase
     std::vector<Class*>   m_allClasses;
     std::vector<Floor*>   m_allFloors;
 
-	std::vector<Building*>  m_allBuildings;
-	std::vector<Period*>    m_allPeriods;
-	std::vector<Section*>   m_allSections;
-	std::vector<TimeTable*> m_allTimeTables;
+    std::vector<Building*>  m_allBuildings;
+    std::vector<Period*>    m_allPeriods;
+    std::vector<Section*>   m_allSections;
+    std::vector<TimeTable*> m_allTimeTables;
 };
