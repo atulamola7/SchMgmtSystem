@@ -27,13 +27,13 @@ int Section::addAttrs(const vector<pair<string, string> >& attrs)
 
 ostream& operator<<(ostream& os, const Section* s)
 {
-  os << "Section: " << s->m_name << ' ' << s->m_maxOccupancy << ' ' << s->m_roomNo;
+  os << "Section: Name-" << s->m_name << " Max-" << s->m_maxOccupancy << " Room-" << s->m_roomNo;
   return os;
 }
 
 ostream& operator<<(ostream& os, const Section& s)
 {
-  os << "Section: " << s.m_name << ' ' << s.m_maxOccupancy << ' ' << s.m_roomNo;
+  os << "Section: Name-" << s.m_name << " Max-" << s.m_maxOccupancy << " Room-" << s.m_roomNo;
   return os;
 }
 

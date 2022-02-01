@@ -103,8 +103,8 @@ class EntityDataBase
     std::vector<Class*>   m_allClasses;
     std::vector<Floor*>   m_allFloors;
 
-	std::vector<Building*> m_allBuildings;
-	std::vector<Period*>   m_allPeriods;
-	std::vector<Section*>  m_allSections;
-	std::vector<TimeTable*>  m_allTimeTables;
+	std::vector<Building*>  m_allBuildings;
+	std::vector<Period*>    m_allPeriods;
+	std::vector<Section*>   m_allSections;
+	std::vector<TimeTable*> m_allTimeTables;
 };

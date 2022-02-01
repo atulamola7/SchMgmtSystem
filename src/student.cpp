@@ -16,12 +16,13 @@ Student::~Student()
   m_avgPercent = 0.0f;
 }
 
-int Student::addAttrs(const std::vector<std::pair<std::string, std::string> >& attrs)
+int Student::addAttrs(const vector<pair<string, string> >& attrs)
 {
   for(int i = 0; i < attrs.size(); i++)
   {
-    if(attrs[i].first == "name")    m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
+    if(attrs[i].first == "name")         m_name = StringEx::replaceAll(attrs[i].second, "_", " ");
     else if(attrs[i].first == "roll_no") m_rollNo = attrs[i].second;
+	//else if(attrs[i].first == "marks") 
   }
 
   return 0;

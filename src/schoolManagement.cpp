@@ -4,7 +4,7 @@ using namespace std;
 
 #define MAJOR_VERSION 0
 #define MINOR_VERSION 5
-#define REVISION 0
+#define REVISION 1
 
 void PrintSMSVersion()
 {
